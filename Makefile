@@ -5,8 +5,8 @@ install-go-mods:
 
 # start development
 start:
-	go run cmd/serve.go
+	go run main.go
 
 # building application
 build:
-	go build -o ./bin/serve ./cmd/serve.go
+	go build -o ./bin/serve ./main.go
