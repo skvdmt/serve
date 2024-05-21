@@ -5,4 +5,4 @@ Frontend server application
 ```go install github.com/skvdmt/serve@latest```
 
 ### Usage
-```serve --port=8000 --handler=mux --folder=./public```
+```serve --port=8000 --router=mux --folder=./public```

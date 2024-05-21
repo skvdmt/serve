@@ -12,49 +12,49 @@ import (
 
 var port int
 var folder string
-var handlerName string
+var routerName string
 
 // main entrypoint
 func main() {
 	parseFlags()
-	var handler http.Handler
-	switch handlerName {
+	var router http.Handler
+	switch routerName {
 	case "mux":
-		handler = getMuxHandler()
+		router = getMuxHandler()
 	case "gin":
-		handler = getGinHandler()
+		router = getGinHandler()
 	case "echo":
-		handler = getEchoHandler()
+		router = getEchoHandler()
 	}
-	log.Printf("starting frontend server application on %d port for %s folder", port, folder)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), handler))
+	log.Printf("starting frontend server application on %d port for %s folder with %s router", port, folder, routerName)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), router))
 }
 
 // parseFlags get commandline params
 func parseFlags() {
 	flag.IntVar(&port, "port", 8000, "port serve frontend application")
 	flag.StringVar(&folder, "folder", "./public", "folder frontend application")
-	flag.StringVar(&handlerName, "handler", "mux", "handler name: mux, gin, echo")
+	flag.StringVar(&routerName, "router", "mux", "router name: mux, gin, echo")
 	flag.Parse()
 }
 
-// getMuxHandler Mux Handler
+// getMuxHandler Mux router
 func getMuxHandler() http.Handler {
-	h := http.NewServeMux()
-	h.Handle("/", http.FileServer(http.Dir(folder)))
-	return h
+	r := http.NewServeMux()
+	r.Handle("/", http.FileServer(http.Dir(folder)))
+	return r
 }
 
-// getGinHandler Gin Handler
+// getGinHandler Gin router
 func getGinHandler() http.Handler {
-	h := gin.Default()
-	h.Static("/", folder)
-	return h
+	r := gin.Default()
+	r.Static("/", folder)
+	return r
 }
 
-// getEchoHandler Echo handler
+// getEchoHandler Echo router
 func getEchoHandler() http.Handler {
-	h := echo.New()
-	h.Static("/", folder)
-	return h
+	r := echo.New()
+	r.Static("/", folder)
+	return r
 }
