@@ -1,4 +1,4 @@
-module serve
+module github.com/skvdmt/serve
 
 go 1.22.1
 
