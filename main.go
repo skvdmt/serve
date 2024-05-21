@@ -33,7 +33,7 @@ func main() {
 // parseFlags get commandline params
 func parseFlags() {
 	flag.IntVar(&port, "port", 8000, "port serve frontend application")
-	flag.StringVar(&folder, "folder", "./public", "folder frontend application")
+	flag.StringVar(&folder, "folder", ".", "folder frontend application")
 	flag.StringVar(&routerName, "router", "mux", "router name: mux, gin, echo")
 	flag.Parse()
 }
